@@ -1,3 +1,4 @@
+//DSL pipeline
 pipeline {
     agent any
     stages {

@@ -22,7 +22,7 @@ pipeline {
                                 configName: 'staging',
                                 sshCredentials: [
                                     username: 'ec2-user',
-                                    keyPath '/var/lib/jenkins/.ssh/id_rsa'
+                                    keyPath: '/var/lib/jenkins/.ssh/id_rsa'
                                 ], 
                                 transfers: [
                                     sshTransfer(

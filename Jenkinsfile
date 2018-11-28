@@ -55,7 +55,7 @@ pipeline {
                             sshPublisherDesc(
                                 configName: 'production',
                                 sshCredentials: [
-                                    username: "ec2-user',
+                                    username: 'ec2-user',
                                     encryptedPassphrase: '/var/lib/jenkins/.ssh/id_rsa'
                                 ], 
                                 transfers: [

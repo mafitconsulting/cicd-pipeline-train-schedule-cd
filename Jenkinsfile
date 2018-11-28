@@ -23,7 +23,7 @@ pipeline {
                                 configName: 'staging',
                                 sshCredentials: [
                                     username: 'ec2-user',
-                                    key: '/var/lib/jenkins/.ssh/id_rsa'
+                                    keyPath '/var/lib/jenkins/.ssh/id_rsa'
                                 ], 
                                 transfers: [
                                     sshTransfer(
@@ -56,7 +56,7 @@ pipeline {
                                 configName: 'production',
                                 sshCredentials: [
                                     username: 'ec2-user',
-                                    encryptedPassphrase: '/var/lib/jenkins/.ssh/id_rsa'
+                                    keyPath: '/var/lib/jenkins/.ssh/id_rsa'
                                 ], 
                                 transfers: [
                                     sshTransfer(

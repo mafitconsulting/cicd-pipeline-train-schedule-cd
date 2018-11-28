@@ -13,7 +13,6 @@ pipeline {
                 branch 'master'
             }
             steps {
-                // withCredentials([sshUserPrivateKey(credentialsId: '/var/lib/jenkins/.ssh/id_rsa', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                 withCredentials(bindings:[sshUserPrivateKey(credentialsId: 'webserver_login', keyFileVariable: 'EC2SSH', passphraseVariable: '', usernameVariable: '')]) {
                     sshPublisher(
                         failOnError: true,
@@ -46,7 +45,6 @@ pipeline {
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
-                // withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                 withCredentials(bindings:[sshUserPrivateKey(credentialsId: 'webserver_login', keyFileVariable: 'EC2SSH', passphraseVariable: '', usernameVariable: '')]) {
                     sshPublisher(
                         failOnError: true,

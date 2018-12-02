@@ -1,4 +1,3 @@
-//DSL pipeline
 pipeline {
     agent any
     stages {
@@ -14,7 +13,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                withCredentials(bindings:[sshUserPrivateKey(credentialsId: 'webserver_login', keyFileVariable: 'EC2SSH', passphraseVariable: '', usernameVariable: '')]) {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
@@ -22,8 +21,8 @@ pipeline {
                             sshPublisherDesc(
                                 configName: 'staging',
                                 sshCredentials: [
-                                    username: 'ec2-user',
-                                    keyPath: '/var/lib/jenkins/.ssh/id_rsa'
+                                    username: "$USERNAME",
+                                    encryptedPassphrase: "$USERPASS"
                                 ], 
                                 transfers: [
                                     sshTransfer(
@@ -46,7 +45,7 @@ pipeline {
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
-                withCredentials(bindings:[sshUserPrivateKey(credentialsId: 'webserver_login', keyFileVariable: 'EC2SSH', passphraseVariable: '', usernameVariable: '')]) {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
@@ -54,8 +53,8 @@ pipeline {
                             sshPublisherDesc(
                                 configName: 'production',
                                 sshCredentials: [
-                                    username: 'ec2-user',
-                                    keyPath: '/var/lib/jenkins/.ssh/id_rsa'
+                                    username: "$USERNAME",
+                                    encryptedPassphrase: "$USERPASS"
                                 ], 
                                 transfers: [
                                     sshTransfer(
